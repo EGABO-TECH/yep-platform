@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="web/img/yep-logo.jpg" alt="YEP logo" width="160">
+<img src="web/img/yep-logo-light.png" alt="YEP logo" width="160">
 
 # YEP
 

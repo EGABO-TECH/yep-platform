@@ -1,0 +1,18 @@
+@font-face { font-family: "Bricolage"; src: url("../fonts/bricolage-grotesque-latin-800-normal.woff2") format("woff2"); font-weight: 800; }
+@font-face { font-family: "Lexend"; src: url("../fonts/lexend-latin-400-normal.woff2") format("woff2"); font-weight: 400; }
+@font-face { font-family: "Lexend"; src: url("../fonts/lexend-latin-600-normal.woff2") format("woff2"); font-weight: 700; }
+@page { size: A4 landscape; margin: 0; }
+* { box-sizing: border-box; }
+body { margin: 0; background: #E9EEF7; font-family: "Lexend", system-ui, sans-serif; color: #00184D; display: grid; place-items: center; min-height: 100vh; padding: 24px; }
+.cert { width: min(1000px, 100%); background: #fff; border-radius: 18px; padding: 48px 56px; text-align: center; position: relative; overflow: hidden; border: 10px solid #00184D; }
+.cert::after { content: ""; position: absolute; left: -10%; right: -10%; bottom: -60px; height: 160px; border-top: 8px solid #FEA215; border-radius: 50% 50% 0 0; opacity: .9; }
+.cert-logo { width: 230px; height: auto; margin: 0 auto 4px; }
+.cert-kicker { font-weight: 700; color: #0055C7; font-size: 18px; margin: 0; }
+h1 { font-family: "Bricolage", system-ui, sans-serif; font-weight: 800; font-size: 56px; letter-spacing: -0.03em; margin: 10px 0 6px; }
+.cert-lead { font-size: 19px; max-width: 46ch; margin: 0 auto; line-height: 1.5; }
+.cert-meta { display: flex; justify-content: center; gap: 40px; margin: 28px 0 10px; flex-wrap: wrap; }
+.cert-meta span { display: block; color: #5B6785; font-size: 14px; }
+.cert-meta b { font-size: 18px; }
+.cert-check { color: #5B6785; font-size: 14px; position: relative; z-index: 1; }
+.cert-print { margin-top: 18px; position: relative; z-index: 1; font: inherit; font-weight: 700; padding: 12px 20px; border-radius: 10px; border: 0; background: #0055C7; color: #fff; cursor: pointer; }
+@media print { body { background: #fff; padding: 0; } .cert { border-radius: 0; width: 100%; min-height: 100vh; } .cert-print { display: none; } }

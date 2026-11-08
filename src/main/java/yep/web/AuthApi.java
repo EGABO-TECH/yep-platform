@@ -81,13 +81,13 @@ public class AuthApi extends ApiModule {
     private Object login(Request req) {
         Session session = s.auth.login(req.str("email"), req.str("password"));
         req.exchange().getResponseHeaders().add("Set-Cookie",
-                YepServer.COOKIE + "=" + session.getToken() + "; Path=/; HttpOnly; SameSite=Lax; Max-Age=1800");
+                YepServer.COOKIE + "=" + session.getToken() + YepServer.cookieAttributes(req.exchange(), 1800));
         return obj("user", v.user(session.getUser()));
     }
 
     private Object logout(Request req) {
         s.auth.logout(req.token());
-        req.exchange().getResponseHeaders().add("Set-Cookie", YepServer.COOKIE + "=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0");
+        req.exchange().getResponseHeaders().add("Set-Cookie", YepServer.COOKIE + "=" + YepServer.cookieAttributes(req.exchange(), 0));
         return obj("ok", true, "message", "Logged out");
     }
 

@@ -1,0 +1,8 @@
+.git
+out/
+target/
+docs/
+.idea/
+.vscode/
+*.iml
+*.log

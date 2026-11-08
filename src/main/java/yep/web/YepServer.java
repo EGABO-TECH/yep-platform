@@ -44,6 +44,7 @@ public class YepServer {
 
     public HttpServer start(int port) throws IOException {
         HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
+        server.createContext("/healthz", ex -> send(ex, 200, "text/plain; charset=utf-8", "ok".getBytes(StandardCharsets.UTF_8)));
         server.createContext("/api/", this::handleApi);
         server.createContext("/", this::handleStatic);
         server.setExecutor(Executors.newFixedThreadPool(16));
@@ -84,6 +85,16 @@ public class YepServer {
             ex.getResponseHeaders().add("Cache-Control", "no-store");
             send(ex, status, "application/json; charset=utf-8", Json.write(result).getBytes(StandardCharsets.UTF_8));
         }
+    }
+
+    /**
+     * Cookie attributes for the session cookie. Adds Secure when the request reached us over HTTPS
+     * through a proxy (Render and similar hosts terminate TLS and set X-Forwarded-Proto).
+     */
+    static String cookieAttributes(HttpExchange ex, int maxAge) {
+        String proto = ex.getRequestHeaders().getFirst("X-Forwarded-Proto");
+        String secure = proto != null && proto.equalsIgnoreCase("https") ? "; Secure" : "";
+        return "; Path=/; HttpOnly; SameSite=Lax; Max-Age=" + maxAge + secure;
     }
 
     private static String readCookie(HttpExchange ex) {

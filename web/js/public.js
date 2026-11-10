@@ -1,5 +1,6 @@
 // Public pages: landing, log in, register and certificate check (wireframes 1 to 3 and 11).
-import { api, esc, $, $$, go, toast, busy, formData, loadMe, loadMeta, state, store, wordmark, journey, homePath, icon } from "./core.js";
+import { api, esc, $, $$, go, toast, busy, formData, loadMe, loadMeta, state, store, wordmark, homePath, icon } from "./core.js";
+import { photoBackdrop, photoCredit, runSlideshow } from "./photos.js";
 
 function publicLayout(content, { dark = false } = {}) {
   const head = `<header class="pub-head">${wordmark("#/")}
@@ -11,12 +12,39 @@ function publicLayout(content, { dark = false } = {}) {
   return dark ? content.replace("<!--HEAD-->", head) + foot : `<div class="public">${head}${content}${foot}</div>`;
 }
 
+/**
+ * Log in and create account: the same photographs as the landing page, with the form on a card.
+ * aside = { title, lead, switchText, switchHref, switchLabel, start }
+ */
+function authScreen(card, a) {
+  return `<div class="auth-screen photo-screen">
+    ${photoBackdrop(a.start)}
+    <header class="auth-nav">
+      <a class="lp-brand" href="#/" aria-label="YEP Youth Empowerment Project, home"><span class="lp-mark"><img src="img/yep-symbol.png" alt="" width="240" height="140"></span>YEP</a>
+      <p class="auth-switch">${a.switchText} <a href="${a.switchHref}">${a.switchLabel}</a></p>
+    </header>
+    <div class="auth-body">
+      <div class="auth-intro">
+        <p class="auth-title">${a.title}</p>
+        <p class="auth-lead">${a.lead}</p>
+      </div>
+      <div class="auth-card">${card}</div>
+    </div>
+    <footer class="auth-foot"><span>Youth Empowerment Project. Learn, connect, grow.</span><span class="auth-credit"></span></footer>
+  </div>`;
+}
+
+function startAuthPhotos(root, start) {
+  const credit = root.querySelector(".auth-credit");
+  runSlideshow(root.querySelector(".auth-screen"), { start, onChange: (i, s) => { credit.innerHTML = photoCredit(s); } });
+}
+
 export async function login(root) {
   if (state.user) return go(homePath(state.user));
   const meta = await loadMeta();
-  root.innerHTML = publicLayout(`<div class="auth-wrap"><div class="auth-card">
+  root.innerHTML = authScreen(`
     <div class="panel stack">
-      <div style="text-align:center"><img class="auth-logo" src="img/yep-logo-light.png" alt="Youth Empowerment Project. Learn, connect, grow." width="480" height="437"><h1 style="font-size:30px">Log in</h1></div>
+      <div class="auth-head"><div><h1>Log in</h1><p>Welcome back to YEP</p></div></div>
       <div id="login-error" class="notice error" role="alert" hidden></div>
       <form id="login-form" class="stack" novalidate>
         <label class="field"><span>Email</span><input class="input" name="email" type="email" autocomplete="username" required></label>
@@ -24,15 +52,17 @@ export async function login(root) {
         <button class="btn primary block" type="submit">Log in</button>
         <p class="tiny muted" style="text-align:center">The account is locked after 5 wrong attempts.</p>
       </form>
-      <hr style="border:0;border-top:1px solid var(--line)">
-      <p style="text-align:center">New to YEP? <a href="#/register">Create an account</a></p>
     </div>
     <div class="panel flat" style="margin-top:14px">
       <h3>Try a demo account</h3>
       <p class="small muted">Tap one to fill in the form. Every demo password is <b>${esc(meta.demoPassword)}</b>.</p>
       <div class="demo-accounts">${meta.demoAccounts.map((a) => `<button type="button" data-email="${esc(a.email)}"><b>${esc(a.name)}</b><span>${esc(a.role)}. ${esc(a.note)}</span></button>`).join("")}</div>
-    </div>
-  </div></div>`);
+    </div>`, {
+    title: "Pick up where you left off.",
+    lead: "Your lessons, your team and your milestones are waiting. Everything you finish counts towards your certificate.",
+    switchText: "New to YEP?", switchHref: "#/register", switchLabel: "Create an account", start: 1,
+  });
+  startAuthPhotos(root, 1);
 
   const form = $("#login-form");
   $$(".demo-accounts button").forEach((b) => b.addEventListener("click", () => {
@@ -68,9 +98,9 @@ export async function register(root, { query }) {
   if (state.user) return go(homePath(state.user));
   const meta = await loadMeta();
   const role = query.role || "YouthParticipant";
-  root.innerHTML = publicLayout(`<div class="auth-wrap"><div class="auth-card">
+  root.innerHTML = authScreen(`
     <div class="panel stack">
-      <div><h1 style="font-size:30px">Create an account</h1><p class="muted" style="margin-top:6px">Youth accounts open immediately. Other accounts are checked by an administrator first.</p></div>
+      <div class="auth-head"><div><h1>Create an account</h1><p>Youth accounts open immediately. Other accounts are checked by an administrator first.</p></div></div>
       <div id="reg-msg" role="alert" hidden></div>
       <form id="reg-form" class="stack" novalidate>
         <label class="field"><span>Full name</span><input class="input" name="fullName" autocomplete="name" required></label>
@@ -86,8 +116,12 @@ export async function register(root, { query }) {
         <label class="check"><input type="checkbox" name="agree" value="yes"><span>I agree to the privacy policy. YEP collects only what it needs to run the programme and never shows my email to employers.</span></label>
         <button class="btn primary block" type="submit">Create account</button>
       </form>
-      <p style="text-align:center">Already registered? <a href="#/login">Log in</a></p>
-    </div></div></div>`);
+    </div>`, {
+    title: "Your first lesson is a few minutes away.",
+    lead: "Short lessons on AI, media literacy and online safety, a real project with young people from other countries, and a certificate employers can check.",
+    switchText: "Already registered?", switchHref: "#/login", switchLabel: "Log in", start: 0,
+  });
+  startAuthPhotos(root, 0);
 
   const form = $("#reg-form");
   form.addEventListener("submit", async (e) => {

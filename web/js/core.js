@@ -95,31 +95,33 @@ export function chipFor(status) {
   return `<span class="chip ${cls}">${esc(label)}</span>`;
 }
 
-// ------------------------------------------------------------------ icons (simple line icons)
-const P = (d) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
+// ------------------------------------------------------------------ icons
+// Icons: Lucide (https://lucide.dev, ISC licence), inlined so screens need no extra download.
+const P = (d) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${d}</svg>`;
 export const icon = {
-  home: P('<path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/>'),
-  book: P('<path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5"/><path d="M9 7h6"/>'),
-  team: P('<circle cx="9" cy="8" r="3.2"/><path d="M3 20c.6-3.4 3-5.4 6-5.4s5.4 2 6 5.4"/><circle cx="17.5" cy="9" r="2.4"/><path d="M16.5 14.4c2.4.2 4 1.8 4.5 4.6"/>'),
-  card: P('<rect x="3" y="4" width="18" height="16" rx="2.5"/><circle cx="9" cy="11" r="2.4"/><path d="M5.8 16.6c.6-1.6 1.8-2.4 3.2-2.4s2.6.8 3.2 2.4"/><path d="M14.5 10h4M14.5 13.5h3"/>'),
-  bell: P('<path d="M6 16V11a6 6 0 1 1 12 0v5l1.5 2h-15z"/><path d="M10 20.5a2.2 2.2 0 0 0 4 0"/>'),
-  check: P('<path d="M4 12.5l5 5L20 6.5"/>'),
-  clipboard: P('<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4.5h6v3H9z"/><path d="M8.5 12l2 2 4-4"/><path d="M8.5 17h7"/>'),
-  plus: P('<path d="M12 5v14M5 12h14"/>'),
-  chat: P('<path d="M4 5h16v11H9l-5 4z"/>'),
-  search: P('<circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/>'),
-  shield: P('<path d="M12 3l8 3v6c0 4.6-3.4 8-8 9-4.6-1-8-4.4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/>'),
-  chart: P('<path d="M4 20V4"/><path d="M4 20h16"/><rect x="7" y="11" width="3" height="6"/><rect x="12" y="7" width="3" height="10"/><rect x="17" y="13" width="3" height="4"/>'),
-  users: P('<circle cx="12" cy="8" r="3.4"/><path d="M5 20c.8-3.8 3.6-6 7-6s6.2 2.2 7 6"/>'),
-  spark: P('<path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5L18 18M6 18l2.5-2.5M15.5 8.5L18 6"/>'),
-  log: P('<path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5"/><path d="M9 12h7M9 16h7"/>'),
-  play: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l11 7-11 7z" fill="currentColor"/></svg>',
-  back: P('<path d="M15 5l-7 7 7 7"/>'),
-  download: P('<path d="M12 4v11"/><path d="M7 11l5 5 5-5"/><path d="M5 20h14"/>'),
-  logout: P('<path d="M15 4h4v16h-4"/><path d="M10 8l-4 4 4 4"/><path d="M6 12h10"/>'),
-  close: P('<path d="M6 6l12 12M18 6L6 18"/>'),
-  seal: P('<circle cx="12" cy="10" r="6"/><path d="M9 15.5L8 21l4-2 4 2-1-5.5"/><path d="M9.5 10l1.8 1.8L14.8 8"/>'),
-  link: P('<path d="M10 14a4 4 0 0 0 5.6 0l3-3a4 4 0 0 0-5.6-5.6l-1 1"/><path d="M14 10a4 4 0 0 0-5.6 0l-3 3a4 4 0 0 0 5.6 5.6l1-1"/>'),
+  home: P('<path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>'),
+  book: P('<path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/>'),
+  team: P('<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>'),
+  card: P('<path d="M16 10h2"/><path d="M16 14h2"/><path d="M6.17 15a3 3 0 0 1 5.66 0"/><circle cx="9" cy="11" r="2"/><rect x="2" y="5" width="20" height="14" rx="2"/>'),
+  bell: P('<path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/>'),
+  check: P('<path d="M20 6 9 17l-5-5"/>'),
+  clipboard: P('<rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/>'),
+  plus: P('<path d="M5 12h14"/><path d="M12 5v14"/>'),
+  edit: P('<path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z"/>'),
+  chat: P('<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>'),
+  search: P('<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>'),
+  shield: P('<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/>'),
+  chart: P('<path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/>'),
+  users: P('<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>'),
+  spark: P('<path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/>'),
+  log: P('<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/>'),
+  play: '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 5.14v13.72a1 1 0 0 0 1.52.85l10.9-6.86a1 1 0 0 0 0-1.7L9.52 4.29A1 1 0 0 0 8 5.14z" fill="currentColor"/></svg>',
+  back: P('<path d="m15 18-6-6 6-6"/>'),
+  download: P('<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/>'),
+  logout: P('<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/>'),
+  close: P('<path d="M18 6 6 18"/><path d="m6 6 12 12"/>'),
+  seal: P('<path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"/><circle cx="12" cy="8" r="6"/>'),
+  link: P('<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>'),
 };
 
 export const wordmark = (href = "#/") => `<a class="wordmark" href="${href}" aria-label="YEP Youth Empowerment Project, home">
@@ -163,7 +165,7 @@ export function animateJourneys(root = document) {
 // ------------------------------------------------------------------ app shell
 const NAV = {
   YouthParticipant: [["/home", "Home", "home"], ["/learn", "Learn", "book"], ["/team", "Team", "team"], ["/portfolio", "Portfolio", "card"]],
-  Facilitator: [["/facilitator", "Grading", "clipboard"], ["/facilitator/content", "Content", "plus"], ["/facilitator/teams", "Teams", "team"], ["/facilitator/comments", "Comments", "chat"]],
+  Facilitator: [["/facilitator", "Grading", "clipboard"], ["/facilitator/content", "Content", "edit"], ["/facilitator/teams", "Teams", "team"], ["/facilitator/comments", "Comments", "chat"]],
   Mentor: [["/mentor", "My teams", "team"], ["/verify", "Verify", "shield"]],
   Employer: [["/talent", "Find talent", "search"], ["/verify", "Verify", "shield"]],
   UniversityRep: [["/reports", "Reports", "chart"], ["/verify", "Verify", "shield"]],
@@ -190,7 +192,8 @@ export function shell(path, content) {
     <header class="topbar">
       <span class="brand-mobile">${wordmark("#" + homePath(u))}</span>
       <span class="who">${esc(u.roleLabel)}${u.organization ? ", " + esc(u.organization) : ""}</span>
-      <div class="row" style="gap:8px">
+      <span class="crumb"><span class="crumb-role">${esc(u.roleLabel)}</span>${u.organization ? `<span class="crumb-org">${esc(u.organization)}</span>` : ""}</span>
+      <div class="row" style="gap:8px;margin-left:auto">
         <button class="iconbtn" data-action="notifications" type="button" aria-label="Notifications${state.unread ? ", " + state.unread + " unread" : ""}">${icon.bell}${state.unread ? `<span class="dot">${state.unread}</span>` : ""}</button>
         <button class="iconbtn mobile-only" data-action="logout" type="button" aria-label="Log out">${icon.logout}</button>
       </div>

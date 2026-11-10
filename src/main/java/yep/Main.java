@@ -10,12 +10,6 @@ import com.sun.net.httpserver.HttpServer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-/**
- * Youth Empowerment Project (YEP): Youth Digital Empowerment and Virtual Exchange Platform.
- * Semester assignment, Object-Oriented Programming Using Java, Cavendish University Uganda.
- *
- * Starts the web server on http://localhost:8080 (or the PORT environment variable).
- */
 public class Main {
     public static void main(String[] args) throws Exception {
         int port = Integer.parseInt(System.getenv().getOrDefault("PORT", args.length > 0 ? args[0] : "8080"));
@@ -31,7 +25,6 @@ public class Main {
         new Seeder(services).seed();
 
         HttpServer server = new YepServer(services, web).start(port);
-        // Hosts such as Render send SIGTERM before stopping the app: finish open requests first.
         Runtime.getRuntime().addShutdownHook(new Thread(() -> server.stop(2)));
 
         String url = System.getenv().getOrDefault("RENDER_EXTERNAL_URL", "http://localhost:" + port);

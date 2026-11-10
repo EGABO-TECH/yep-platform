@@ -10,11 +10,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Predicate;
 
-/**
- * In-memory store for every entity (the "SAVE" and "FIND ... WHERE" steps in the pseudo-code).
- * Each list matches one table in the ERD. For a production system this class would be
- * replaced by a database repository with the same methods.
- */
 public class DataStore {
     private final AtomicInteger nextId = new AtomicInteger(1000);
 

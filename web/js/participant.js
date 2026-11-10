@@ -1,7 +1,9 @@
 // Youth participant screens (wireframes 4 to 8).
 import { api, esc, $, $$, go, toast, busy, formData, state, store, journey, icon, chipFor, plural, openSheet, animateJourneys } from "./core.js";
 
-const ring = (p) => `<span class="ring ${p >= 100 ? "full" : ""}" style="--p:${p}" data-label="${p}%" aria-hidden="true"></span>`;
+const ring = (p) => p >= 100
+  ? `<span class="track-mark done" aria-hidden="true">${icon.check}</span>`
+  : `<span class="track-mark" aria-hidden="true">${p}%</span>`;
 const trackChip = (t) => t.progress >= 100 ? `<span class="chip done">Completed</span>` : t.progress === 0 ? `<span class="chip">Not started</span>` : `<span class="chip progress">${t.progress}%</span>`;
 
 // ------------------------------------------------------------------ dashboard (wireframe 4)
@@ -17,7 +19,7 @@ export async function home(main) {
   }[d.stage];
 
   const cont = d.continueLessonId
-    ? `<a class="btn warm" href="#/lesson/${d.continueLessonId}">Continue learning</a><span class="small" style="color:#B9C6E4">Next: ${esc(d.continueTrack)}</span>`
+    ? `<a class="btn warm" href="#/lesson/${d.continueLessonId}">Continue learning</a><span class="small muted">Next: ${esc(d.continueTrack)}</span>`
     : d.nextAssessmentId ? `<a class="btn warm" href="#/quiz/${d.nextAssessmentId}">Take the ${esc(d.nextAssessmentTitle)}</a>`
     : d.team ? `<a class="btn warm" href="#/team">Open team project</a>` : `<a class="btn warm" href="#/portfolio">View my portfolio</a>`;
 
@@ -75,7 +77,7 @@ export async function learn(main, { query }) {
       <details class="panel" ${open === t.id || (!open && t.progress > 0 && t.progress < 100) ? "open" : ""}>
         <summary class="track-row" style="cursor:pointer;list-style:none">${ring(t.progress)}<span class="grow"><h3>${esc(t.title)}</h3><span class="small muted">${esc(t.summary)}</span></span>${trackChip(t)}</summary>
         <ul class="list" style="margin-top:14px">
-          ${t.lessons.map((l, i) => `<li><a class="rowlink" href="#/lesson/${l.id}"><span class="chip ${l.done ? "done" : ""}" style="min-width:34px;justify-content:center">${l.done ? "✓" : i + 1}</span><span class="grow"><span class="title">${esc(l.title)}</span><br><span class="tiny muted">${l.minutes} min read${l.hasVideo ? ", optional video" : ""}</span></span></a></li>`).join("")}
+          ${t.lessons.map((l, i) => `<li><a class="rowlink" href="#/lesson/${l.id}"><span class="chip ${l.done ? "done" : ""}" style="min-width:34px;justify-content:center">${l.done ? icon.check : i + 1}</span><span class="grow"><span class="title">${esc(l.title)}</span><br><span class="tiny muted">${l.minutes} min read${l.hasVideo ? ", optional video" : ""}</span></span></a></li>`).join("")}
           ${t.assessments.map((a) => `<li><a class="rowlink" href="#/quiz/${a.id}"><span class="avatar blue" style="width:34px;height:34px">${icon.clipboard}</span><span class="grow"><span class="title">${esc(a.title)}</span><br><span class="tiny muted">${a.type === "WRITTEN" ? "Written task, marked by a facilitator" : `${a.questionCount} questions, ${a.timeLimit} minutes`}, ${a.maxScore} marks${a.score != null ? `. You scored ${a.score}` : ""}</span></span>${chipFor(a.state)}</a></li>`).join("")}
         </ul>
       </details>`).join("")}
@@ -326,7 +328,7 @@ export async function team(main) {
   const draftKey = current ? "draft." + current.id : null;
   const localDraft = draftKey ? store.get(draftKey) : null;
 
-  main.innerHTML = `<div class="page-head"><div><p class="small muted" style="margin:0">Level Two impact project</p><h1 style="margin-top:4px">${esc(t.name)}, ${esc(t.focusArea)}</h1></div>
+  main.innerHTML = `<div class="page-head"><div><h1>${esc(t.name)}, ${esc(t.focusArea)}</h1><p>Level Two impact project</p></div>
     <button class="btn" id="chat">${icon.chat} Team chat</button></div>
   ${!p ? `<section class="panel stack" style="max-width:760px"><h2>Start your project</h2><p class="muted">Agree as a team on the problem you will work on, then one member creates the project. Three milestones are added automatically: Planning, Prototype and Final.</p>
       <form id="create-project" class="stack"><label class="field"><span>Project title</span><input class="input" name="title" required maxlength="90"></label>

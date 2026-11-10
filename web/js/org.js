@@ -83,10 +83,17 @@ export async function reports(main, { query }) {
   <div class="${isOutcome ? "grid-2" : ""}" style="align-items:start">
     ${chart}
     <div class="table-wrap" style="background:var(--surface)"><table class="data"><thead><tr>${r.columns.map((c, i) => `<th class="${i > 0 && isOutcome ? "num" : ""}">${esc(c)}</th>`).join("")}</tr></thead>
-      <tbody>${r.rows.length ? r.rows.map((row) => `<tr>${row.map((c, i) => `<td class="${i > 0 && isOutcome ? "num" : ""}">${esc(c)}</td>`).join("")}</tr>`).join("") : `<tr><td colspan="${r.columns.length}" class="muted">No records in this date range.</td></tr>`}</tbody></table></div>
+      <tbody>${r.rows.length ? r.rows.map((row) => `<tr>${row.map((c, i) => `<td class="${i > 0 && isOutcome ? "num" : ""}">${r.columns[i] === "Status" ? statusChip(c) : esc(c)}</td>`).join("")}</tr>`).join("") : `<tr><td colspan="${r.columns.length}" class="muted">No records in this date range.</td></tr>`}</tbody></table></div>
   </div>`;
 
   const nav = (t, from, to) => { location.hash = "/reports?" + new URLSearchParams({ type: t, from: from || "", to: to || "" }); };
   $$("[data-type]").forEach((b) => b.addEventListener("click", () => nav(b.dataset.type, query.from, query.to)));
   $("#range").addEventListener("submit", (e) => { e.preventDefault(); nav(type, e.target.from.value, e.target.to.value); });
+}
+
+/** Status text in report tables shown as a coloured chip. */
+function statusChip(text) {
+  const t = String(text ?? "");
+  const cls = /complet|pass|approved/i.test(t) ? "done" : /progress|enrol/i.test(t) ? "progress" : /withdr|fail|not/i.test(t) ? "bad" : "";
+  return `<span class="chip ${cls}">${esc(t)}</span>`;
 }

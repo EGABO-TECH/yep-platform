@@ -13,7 +13,7 @@
 ![Build](https://img.shields.io/badge/build-Maven-FEA215?style=for-the-badge&logo=apachemaven&logoColor=white)
 ![Status](https://img.shields.io/badge/status-prototype-FEBA03?style=for-the-badge)
 
-Working prototype for the **OOP Using Java** semester assignment at **Cavendish University Uganda** (item 10 of the brief).
+Working prototype.
 
 [Quick start](#quick-start) •
 [Demo accounts](#demo-accounts) •
